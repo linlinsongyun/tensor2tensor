@@ -208,6 +208,7 @@ def multihead_attention(query_antecedent,
     raise ValueError("Value depth (%d) must be divisible by the number of "
                      "attention heads (%d)." % (total_value_depth, num_heads))
   vars_3d_num_heads = num_heads if vars_3d else 0
+  # vars_3d = false
   with tf.variable_scope(name, default_name="multihead_attention",
                          values=[query_antecedent, memory_antecedent]):
 
