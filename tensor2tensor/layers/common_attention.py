@@ -1573,6 +1573,7 @@ def dot_product_attention(q,
   with tf.variable_scope(
       name, default_name="dot_product_attention", values=[q, k, v]) as scope:
     logits = tf.einsum("...kd,...qd->...qk", k, q)
+    # logits = q*k.T
     if bias is not None:
       bias = common_layers.cast_like(bias, logits)
       logits += bias
@@ -1592,6 +1593,7 @@ def dot_product_attention(q,
     if common_layers.should_generate_summaries() and make_image_summary:
       attention_image_summary(weights, image_shapes)
     return tf.matmul(weights, v)
+    # return softmax(q*k.T+bias)*v
 
 
 def _generate_relative_positions_matrix(length_q, length_k,
